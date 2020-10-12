@@ -34,8 +34,6 @@ define Build/Compile
 endef
 
 define Package/autocore/install
-	$(INSTALL_DIR) $(1)/etc/init.d
-	$(INSTALL_BIN) ./files/autocore $(1)/etc/init.d/autocore
 	$(INSTALL_DIR) $(1)/sbin
 	$(CP) ./files/sbin/* $(1)/sbin
 endef
