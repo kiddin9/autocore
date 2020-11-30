@@ -1,6 +1,7 @@
 'use strict';
 'require view';
 'require dom';
+'require uci';
 'require rpc';
 'require network';
 
@@ -60,8 +61,13 @@ return view.extend({
 	},
 
 	render: function(topologies) {
-			var switch_name     = "switch0",
-			    topology        = topologies[switch_name];
+		var switchSections = uci.sections('network', 'switch');
+		if (!switchSections.length)
+		   return;
+		var switchSection   = switchSections[0],
+		    sid             = switchSection['.name'],
+			switch_name     = switchSection.name || sid,
+			topology        = topologies[switch_name];
 				var tables="<table class='table cbi-section-table'>"
 				var labels="<tr class='tr cbi-section-table-titles'>"
 				var states="<tr class='tr cbi-section-table-titles'>"
