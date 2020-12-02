@@ -39,12 +39,9 @@ return view.extend({
 		return network.getSwitchTopologies().then(function(topologies) {
 			var tasks = [];
 
-			for (var switch_name in topologies) {
-
-				tasks.push(callSwconfigPortState(switch_name).then(L.bind(function(ports) {
+				tasks.push(callSwconfigPortState("switch0").then(L.bind(function(ports) {
 					this.portstate = ports;
-				}, topologies[switch_name])));
-			}
+				}, topologies["switch0"])));
 
 			return Promise.all(tasks).then(function() { return topologies });
 		});
